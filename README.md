@@ -1,49 +1,42 @@
-# Integratieopdracht DevOps
-`voorzie badge hier (zie opgave)`
+# Lab DevOps
+`Add the badge here (see assignment below)`
 
-## Inleiding
-Het bedrijf OpsDev heeft met argusogen de lessen Devops op 2TIN meegevolgd en is zelf aan de slag gegaan aan een eigen versie van de calculator app die we gebruikt hebben tijdens de lessen. Je zou kunnen stellen dat er enkele gelijkenissen zijn tussen de app gebruikt tijdens de les en die van het bedrijf. Naast het ‘op een correcte manier kopiëren van applicaties’ is het bedrijf OpsDev ook vies van Jenkins en (lokaal gehoste) virtuele machines.
+## Introduction
+The company OpsDev has been secretly following our DevOps workshop and has jumped on the chance to implement a CI/CD pipeline for their own calculator app. However, the company considers itself allergic to Jenkins and (locally hosted) virtual machines.
 
-Jij start als junior-collega in het bedrijf OpsDev en bent verantwoordelijke voor het opzetten van een systeem waarbij je CI & CD toepast. Zoals aangegeven mag er geen jenkins of virtuele machine gebruikt worden. Op aangeven van Kevin, Head of Operations (Je baas), ga je je verdiepen in Github actions en docker. De code van hun calculator applicatie is terug te vinden in deze repository.
-
-![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip")
-_(a) Inventariseer kort in oplossing.md waarvoor github actions en docker gebruikt worden. Wie zit er achter deze toepassingen? Wat is het doel?_
+You have just started as a junior in the company OpsDev and are responsible for setting up a CI/CD pipeline. You cannot use Jenkins (which we didn't touch upon in the workshop anyway) or virtual machines. At the direction of Kevin, head of operations, you will be using Github actions and docker. This repository contains their amazing calculator application.
 
 ![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip")
-_Maak een account aan op [dockerhub](https://hub.docker.com/)._
+_(a) In solutions.md, describe the use of github actions and docker in your own words. Which companies are behind these systems? What is the goal?_
+
+![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip")
+_For this assignement you will need an account on [dockerhub](https://hub.docker.com/), create one now_
 
 # Let's get started!
-OpsDev hecht veel waarde aan kwaliteit & feedback. Een CI/CD pipeline is dan ook een must-have voor het bedrijf. Helaas heeft in-house niemand buiten jijzelf de kennis om CI/CD pipelines te bouwen.
+OpsDev values quality and feedback, so a CI/CD pipeline is a must-have for the company. Sadly, nobody working there currently has the required knowledge to build a CI/CD pipeline.
 
-Voor de continious integration fase van het bouwen van de applicatie zal je gebruik maken van Github actions.  Je zal merken dat hier verschillen in zitten ten opzichte van jenkins. 
+For the continious integration phase, you will be using Github actions. Github actions are part of the Github ecosystem, something you will make eager use of during this lab. Follow the documentation carefully to get a working pipeline.
 
-Github actions heeft meteen een zeer goede integratie met het Github ecosysteem. Dit is iets waar je perfect gebruik van kan maken. Je zal de guidelines van de documentatie strict  moeten volgen om een werkend product te krijgen.
-
-![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip") _Begin alvast met het volgende van de quickstart guide op [deze link](https://docs.github.com/en/actions/quickstart) en pas deze toe op deze repository._
+![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip") _Let's start greenfield with the github action quickstart guide which you can find [here](https://docs.github.com/en/actions/quickstart). Apply the quickstart to this repository._
 
 ![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip")
-_(b) Na het verkennen van Github Actions zal je merken dat er gebruikt gemaakt wordt van yaml files. Wat voor soort files zijn dit? hoe zijn die opgebouwd? Hoe zit een yaml syntax/structuur eruit? Documenteer in oplossing.md_
+_(b) Github actions uses yaml files. What are yaml files? What does the structure and syntact of a yaml file look like. Document this in solutions.md_
 
 # CI workflow
-Het eerste doel van onze CI "workflow", zo noemen we een pipeline in Github Actions, is dat de github repository code binnengetrokken wordt. Je zal merken dat dit op zich vrij eenvoudig gaat. Voorziek een nieuwe workflow met als naam `<groepsnaam>-OpsDev-CI` die draait op een ubuntu systeem met daarin een stap die de code van de repository binnentrekt. De nodige info hiervoor kan je terugvinden in de quickstart guide die hierboven gelinkt was.
-
-De volgende stap is het voorzien van triggers voor de workflow. Wanneer wordt de workflow uitgevoerd? Bekijk [deze documentatie](https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows). En zorg ervoor dat de pipeline handmatig gestart kan worden & dat de pipeline ook automatisch runt bij een nieuwe push naar de main branch.
+The first part of our CI "workflow", which is what we call our pipeline in Github actions, is that the github repository code is pulled into the github runner. Create a new workflow, which you'll call '<your_name>-OpsDev-CI'. This workflow will run on a ubuntu system with a step that will pull the code from the repository to the runner. If you get stuck, try consulting the quickstart guide again.
+We'll need to consider when we want to trigger this workflow. You can find more information on the different triggers [here](https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows). Make sure the workflow triggers when a push is made to the main branch, but also make sure we can manually start the workflow.
 
 ![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip")
-_Start de pipeline handmatig om te testen of je workflow werkt. Bekijk de output in de actions tab van je repository_
+_Start the pipeline manually to make sure the workflow functions correctly. Look at the output in the actions tab of the repository._
 
-Hierna willen we graag de unittesten van de applicatie runnen. hiervoor hebben we eerst de dependencies(=node_modules) van de applicatie nodig. Deze kan je installeren via het commando `npm install` dat je in de pipeline dient uit te voeren. Hiervoor heb je uiteraard nodeJS nodig. Lees [deze documentatie](https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs-or-python) door en voorzie een stap die nodeJS integreert in je workflow. Daarna voorzie je ook een stap die de dependencies installeert. Tenslotte voorzie je een stap die de unittesten uitvoert.
+After pulling the code, we would like to run the application's unit tests. To do this, we'll first need to install all the dependencies (node_modules) of the application. The application is built using Node.js, which stores its dependencies in the node_modules folder which is usually left out of the repository using the .gitignore file. The 'npm install' command will reinstall the dependencies. To be able to run the command, we'll need to install nodeJS. This [documentation](https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs-or-python) might help. Add a step that will integrate nodeJS into the the workflow, then install the dependencies. Finally, make sure the workflow runs the unit tests.
 
-Het rapport willen we graag archiveren als artifact van de build poging. Voorzie een stap die dit doet. Informatie hierover kan je [hier](https://docs.github.com/en/actions/advanced-guides/storing-workflow-data-as-artifacts) terugvinden.
+Right now, our workflow is factually stateless because it runs on a virtual runner that gets destroyed when the workflow ends. Therefore, we would like the rapport generated by the unit tests to be archived. Add a step that will do this for us. More information can be found [here](https://docs.github.com/en/actions/advanced-guides/storing-workflow-data-as-artifacts).
 
-Feedback is belangrijk. Het is mogelijk om een badge toe te voegen aan de `README.MD` die de status van de laatste build poging weergeeft. Voorzie dit a.d.h.v. [deze documentatie](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/adding-a-workflow-status-badge).
+Feedback is important! It is possible to add a badge to the top of this 'README.MD' that will show the status of the latest build attempt. Use this [documentation](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/adding-a-workflow-status-badge) to add such a badge to the top of the readme file.
 
-# Integratie pull requests
-Zorg ervoor dat de CI workflow ook uitgevoerd wordt bij het maken van een pull request. 
-Test dit uit door nieuwe feature uit te werken aan de hand van de Github flow. Je werkt de feature uit om machtsberekeningen te maken. Maak na het afwerken van de feature een Pull request aan voor de merge. Controleer of de workflow ook effectief uitgevoerd wordt. 
-
-![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip") 
-_Waar kan je dit terugvinden in de pull request?_
+# Integration pull requests
+Update our CI workflow so it also runs when a pull request is made. You can test this by adding a new feature to the calculator. This new feature will allow the calculator to calculate exponentials. If you're at all familiar with Node.js, any small change to the codebase will do. After you add your feature, create a pull request from your feature branch. Make sure the workflow is executed. 
 
 # Continious delivery
 Voorzie een nieuwe workflow in je repository met als naam '`<groepsnaam>-OpsDev-CD`. Deze workflow wordt enkel manueel gestart. Het doel van deze workflow is dat er een container gebouwd wordt en dat deze image naar dockerhub gepusht wordt (Je baas is enorme fan van Docker, hij heeft daar namelijk verschillende tshirts van).
