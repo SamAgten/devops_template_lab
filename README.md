@@ -35,75 +35,76 @@ Right now, our workflow is factually stateless because it runs on a virtual runn
 
 Feedback is important! It is possible to add a badge to the top of this 'README.MD' that will show the status of the latest build attempt. Use this [documentation](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/adding-a-workflow-status-badge) to add such a badge to the top of the readme file.
 
+![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip")
+_Let's get a bit more experience with github actions. Visit [github actions hero](https://github-actions-hero.vercel.app/lessons/1) and try to do every lesson. You'll encounter a few features we haven't covered here._
+
 # Integration pull requests
 Update our CI workflow so it also runs when a pull request is made. You can test this by adding a new feature to the calculator. This new feature will allow the calculator to calculate exponentials. If you're at all familiar with Node.js, any small change to the codebase will do. After you add your feature, create a pull request from your feature branch. Make sure the workflow is executed. 
 
-# Continious delivery
-Voorzie een nieuwe workflow in je repository met als naam '`<groepsnaam>-OpsDev-CD`. Deze workflow wordt enkel manueel gestart. Het doel van deze workflow is dat er een container gebouwd wordt en dat deze image naar dockerhub gepusht wordt (Je baas is enorme fan van Docker, hij heeft daar namelijk verschillende tshirts van).
+# Continuous delivery
+Add a new workflow to your repository. Name it '<your_name>-OpsDev-CD'. This workflow will only be started manually. The goal of this workflow will be to build a container en push this container to dockerhub (Your boss is a big fan of Docker, in fact, he owns several t-shirts with Docker prints on it). 
 
 ![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip")
-_(f) Wat is Dockerhub juist? Waarvoor kunnen we dat gebruiken?_
+_What exactly is Dockerhub? What can we use it for? Document your findings in solutions.md._
 
 ![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip")
-_(f) Maak een nieuwe repository aan op dockerhub met de naam opsdev-calculator. Deze maak je publiek en je plaatst de link hieronder bij in de `README.md` file:
+_Create a new repository on dockerhub. Name it opsdev-calculator. Make sure the repository is set to public. Copy paste your link below:
+
 ```
-https://hub.docker.com/r/JOUWURL
+https://hub.docker.com/r/YOURURL
 ```
 
-https://github.com/marketplace/actions/docker-login
-Voor de opzet van je CD pipeline helpen we je graag verder:
 
-*   Je zal je login credentials (username & personal acccess token) voor dockerhub moeten toevoegen als secrets aan de repository.
-    _tip: gebruik hiervoor in [Github secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)_
-*   Vervolgens maak je gebruik van de volgende 2 actions plugins:
+Here are some pointers for setting up your CD pipeline:
+
+*   You will need access to your login credentials (username & personal access token) for dockerhub. Remember that workflows are part of your repository and we don't want these secrets as part of the repository. 
+    _tip: Use [Github secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)_
+*   Use the following 2 actions plugins:
     - https://github.com/marketplace/actions/docker-login
     - https://github.com/marketplace/actions/build-and-push-docker-images
     
 
 ![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip")
-_Voorzie een `Dockerfile` in de root van deze repository die de nodeJS opstart (denk ook aan de `npm install` in de container)_
+_Because we don't have time to deep-dive into how Docker works, we have provided a dockerfile in this repository. However, it is a good exercises to delete the DockerFile and try to build it yourself from scratch. In any case, make sure you can run the project locally using docker. (Also remember to use npm install when setting up your own Dockerfile/container)_
 
 ![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip")
-_Na het aanmaken van de Dockerfile kan je starten met de deployment workflow. Bekijk hiervoor de documentatie van de linken hierboven.
+_If you have a working DockerFile, you can start building and pushing the image to dockerhub. Use the documentation linked above. Check on dockerhub that your image was pushed successfully.
 
-**!Let op: de credentials mogen niet zichtbaar zijn in yml file!**
+**!Remember: The credentials cannot be visibible in the yml file!**
 
-
-
-Tenslotte willen we bij elke push naar dockerhub een bericht krijgen in onze discord server. Bouw zelf een nieuwe discord server (of gebruik een bestaande) en voorzie discord alerts. Documentatie hiervoor kan je [hier](https://github.com/marketplace/actions/actions-for-discord) terugvinden. Ook hier willen we niet dat de webhook url zichtbaar is in de yml file.
+Every time we successfully build an image, we want to be notified in our company discord server. Create your own discord server (or use an existing one) and add discord alerts. Here's a useful [link](https://github.com/marketplace/actions/actions-for-discord). Similar to our DockerHub credentials, we don't want our webhook url to be visible in the yml file.
 
 ![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip")
-_(g) Waarom maken we voor het gebruik van de credentials & webhook URL gebruik van secrets? Wat is daar het voordeel van? Zijn er nog andere manieren waarop je dit kon doen?_
+_Why are we using secrets for the credentials and the webhook URL? What is the advantage? Are there any other ways you could approach this?_
 
-# Deploy naar Azure
-Via [deze link](https://azure.microsoft.com/nl-nl/free/students/) kan je op Microsoft Azure een gratis student account aanmaken waarop je 100$ krijgt om te spenderen op het Azure cloud platform. Belangrijk is dat je je aanmeldt met je school e-mail adres.
+# Deploy to Azure
+Via [this link](https://azure.microsoft.com/nl-nl/free/students/) you can get access to a free student account on Microsoft Azure. You will get a $100 to spend on the cloud platform. It is important to use your school email for this.
 
 ![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip")
-_(h) Wat is Azure? Wat zijn de grootste concurrenten? Wat is het grote verschil tussen iaas, paas en saas en hoe past dit in het cloud plaatje?_
+_What is Microsoft Azure? Who are its biggest competitors?_
 
-De build & push naar dockerhub is natuurlijk geen echte deployment. Als extra challenge gaan we nu vanuit Github actions een push voorzien naar Azure app services. Dit is een dienst waar je vrij eenvoudig containers kan opstarten/hosten die publiek op het internet beschikbaar zijn.
+The build and push to dockerhub is not an actual deployment. As an additional challenge, let's add a push to the Azure app services using github actions. This is a service you can use to easily host and start docker containers which will then be available on the internet.
 
-Ga naar via het menu naar _app services_. Vervolgens maak je een nieuwe app aan met volgende instellingen:
+Use the menu to navigate to _app services_. Make a new app with the following settings (the names used here are the names we use at the PXL, feel free to change them up a bit):
 
 ![images](./images/appservices.PNG)
 
-Let er op dat je bij "pricing plan" kiest voor de optie "FREE F1". Hiervoor moet je mogelijks op de link _explore pricing plans_ klikken:
+Make sure you choose the "FREE F1" tier as the "pricing plan". You might need to click on the link _explore pricing plans_ to find it:
 
 ![images](./images/pricingplan.PNG)
 
-Vervolgens kan je in de overview pagina op de link _Get Publish profile_ klikken. De inhoud van deze file voeg je toe als secret aan je repository met als naam `AZURE_WEBAPP_PUBLISH_PROFILE` (dit is nodig om toegang te krijgen tot Azure voor de deployment). 
+Next, once deployment is complete, in the overview page, look for the _Download Publish profile_ button. Add the contents of this file as a secret to your gthub repository using the name `AZURE_WEBAPP_PUBLISH_PROFILE` (This is necessary to get access to Azure for deployment). 
 
-De effectieve deploymentstappen vanuit je github actions pipeline kan je opbouwen aan de hand van de volgende documentatie:
-[https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-azure/deploying-docker-to-azure-app-service#creating-the-workflow](https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-azure/deploying-docker-to-azure-app-service#creating-the-workflow)
+For the remaining deployment steps for your CD workflow, take a look at the following [documentation](https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-azure/deploying-docker-to-azure-app-service#creating-the-workflow)
  
  _tip: een absolute url naar je publieke docker image is bijvoorbeeld: `docker.io/driessw/opsdev-calc`_
 
-# Deliverable
-- Een CI workflow
-- Een status badge in de `README.md` file
-- Een CD workflow
-- De link naar je dockerhub image bovenaan in `oplossing.md`
-- De link naar je publiek draaiende calculator op Azure in `oplossing.md`
+# Deliverables
+- A CI workflow
+- A status badge in the `README.md` file
+- A CD workflow
+- The link to your dockerhub image in solutions.md
+- The link to you publicly available calculator app in 'solutions.md'
 
 
 
