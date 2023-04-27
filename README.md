@@ -7,7 +7,7 @@ The company OpsDev has been secretly following our DevOps workshop and has jumpe
 You have just started as a junior in the company OpsDev and are responsible for setting up a CI/CD pipeline. You cannot use Jenkins (which we didn't touch upon in the workshop anyway) or virtual machines. At the direction of Kevin, head of operations, you will be using Github actions and docker. This repository contains their amazing calculator application.
 
 ![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip")
-_(a) In solutions.md, describe the use of github actions and docker in your own words. Which companies are behind these systems? What is the goal?_
+_In a new file, solutions.md, describe the use of github actions and docker in your own words. Which companies are behind these systems? What is the goal?_
 
 ![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip")
 _For this assignement you will need an account on [dockerhub](https://hub.docker.com/), create one now_
@@ -20,7 +20,7 @@ For the continious integration phase, you will be using Github actions. Github a
 ![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip") _Let's start greenfield with the github action quickstart guide which you can find [here](https://docs.github.com/en/actions/quickstart). Apply the quickstart to this repository._
 
 ![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip")
-_(b) Github actions uses yaml files. What are yaml files? What does the structure and syntact of a yaml file look like. Document this in solutions.md_
+_Github actions uses yaml files. What are yaml files? What does the structure and syntact of a yaml file look like. Document this in solutions.md_
 
 # CI workflow
 The first part of our CI "workflow", which is what we call our pipeline in Github actions, is that the github repository code is pulled into the github runner. Create a new workflow, which you'll call '<your_name>-OpsDev-CI'. This workflow will run on a ubuntu system with a step that will pull the code from the repository to the runner. If you get stuck, try consulting the quickstart guide again.
@@ -42,7 +42,7 @@ _Let's get a bit more experience with github actions. Visit [github actions hero
 Update our CI workflow so it also runs when a pull request is made. You can test this by adding a new feature to the calculator. This new feature will allow the calculator to calculate exponentials. If you're at all familiar with Node.js, any small change to the codebase will do. After you add your feature, create a pull request from your feature branch. Make sure the workflow is executed. 
 
 # Continuous delivery
-Add a new workflow to your repository. Name it '<your_name>-OpsDev-CD'. This workflow will only be started manually. The goal of this workflow will be to build a container en push this container to dockerhub (Your boss is a big fan of Docker, in fact, he owns several t-shirts with Docker prints on it). 
+Add a new workflow to your repository. Name it '<your_name>-OpsDev-CD'. This workflow will only be started manually. The goal of this workflow will be to build a container and push this container to dockerhub (Your boss is a big fan of Docker, in fact, he owns several t-shirts with Docker prints on it). 
 
 ![alt_text](https://i.imgur.com/5STVnt2.png "image_tooltip")
 _What exactly is Dockerhub? What can we use it for? Document your findings in solutions.md._
@@ -97,7 +97,7 @@ Next, once deployment is complete, in the overview page, look for the _Download 
 
 For the remaining deployment steps for your CD workflow, take a look at the following [documentation](https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-azure/deploying-docker-to-azure-app-service#creating-the-workflow)
  
- _tip: een absolute url naar je publieke docker image is bijvoorbeeld: `docker.io/driessw/opsdev-calc`_
+ _tip: the absolute url to a public docker image will look something like this: `docker.io/samagtenpxl/opsdev-calc`_
 
 # Deliverables
 - A CI workflow
